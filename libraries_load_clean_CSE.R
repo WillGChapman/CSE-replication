@@ -21,6 +21,8 @@ installs  <-  requires[!requires %in% installed.packages()[,"Package"]]
 # load required packages
 for (l in requires) require(l, character.only=TRUE)
 
+# reset working directory to project root
+setwd(here::here())
 
 #participant demographics
 setwd("demographics/ppt")
@@ -36,7 +38,7 @@ demo <- demo[demo$Question.Key != "BEGIN QUESTIONNAIRE",]
 demo <- demo[,c("Participant.Private.ID","Question.Key", "Response",'Experiment.Version')]
 #long to wide
 demo <- demo %>%
-  spread(Question.Key, Response)
+  pivot_wider(names_from = Question.Key, values_from = Response)
 
 #study data (mouse version or trackpad. All ppts did buttons too)
 
@@ -46,19 +48,17 @@ files = list.files(pattern="*.csv")
 # First apply read.csv, then rbind
 study = do.call(rbind, lapply(files, function(x) read.csv(x, stringsAsFactors = FALSE)))
 ### keep just the relevant columns
-head(study)
 colnames(study)[1] <- "Event.Index" # rename first column to "Event.Index"
 study<-study[study$Event.Index!="END OF FILE",]
 study<-study[study$Question.Key!="BEGIN QUESTIONNAIRE",]
 study <- study[,c("Participant.Private.ID","Question.Key", "Response",'Experiment.Version')]
 #long to wide
 study <- study %>%
-  spread(Question.Key, Response)
+  pivot_wider(names_from = Question.Key, values_from = Response)
 table(study$mouse) #30 used mouse
 
 # Language information
 
-#Language information
 setwd("../Language1")
 files = list.files(pattern="*.csv")
 # First apply read.csv, then rbind
@@ -71,7 +71,7 @@ Language1<-Language1[Language1$Event.Index!="END OF FILE",]
 Language1 <- Language1[,c("Participant.Private.ID","Question.Key", "Response",'Experiment.Version')]
 #long to wide
 Language1 <- Language1 %>%
-  spread(Question.Key, Response)
+  pivot_wider(names_from = Question.Key, values_from = Response)
 setwd("../Language2")
 
 files = list.files(pattern="*.csv")
@@ -85,50 +85,97 @@ Language2<-Language2[Language2$Event.Index!="END OF FILE",]
 Language2 <- Language2[,c("Participant.Private.ID","Question.Key", "Response",'Experiment.Version')]
 #long to wide
 Language2 <- Language2 %>%
-  spread(Question.Key, Response)
-head(Language2,n=1)
-Language2$`age bilingual-quantised`[is.na(Language2$`age bilingual-quantised`)] <- 1
-Language2$bilingual<-ifelse(Language2$`age bilingual-quantised`==1,0,1)
-bilingual<-Language2[,c("Participant.Private.ID","bilingual")]
-table(bilingual$bilingual) 
+  pivot_wider(names_from = Question.Key, values_from = Response)
 
-# set working directory back to main project working directory
-setwd("~/CSE-rep-git")
+Language2$`age bilingual-quantised`[is.na(Language2$`age bilingual-quantised`)] <- 1
+
+Language2$bilingual<-ifelse(Language2$`age bilingual-quantised`==1,0,1)
+
+#bilingual<-Language2[,c("Participant.Private.ID","bilingual")]
 
 # load pilot data (don't run if you don't want pilot data)
-setwd("~/CSE-rep-git/pilot")
+setwd(here::here("pilot"))
 files = list.files(pattern="38sw")
 pilot= do.call(rbind, lapply(files, function(x) read.csv(x, stringsAsFactors = FALSE)))
 pilot$lang<-"bilingual"
+pilot$pilot <- 1
 colnames(pilot)[1] <- "Event.Index" # rename first column to "Event.Index"
 
 # load monolingual data
-setwd("~/CSE-rep-git/not\ MT/monolingual")
+setwd(here::here("not\ MT/monolingual"))
 files = list.files(pattern="38sw")
 mono= do.call(rbind, lapply(files, function(x) read.csv(x, stringsAsFactors = FALSE)))
 mono$lang<-"monolingual"
+mono$pilot <- 0
 colnames(mono)[1] <- "Event.Index" # rename first column to "Event.Index"
 
 # load bilingual data
-setwd("~/CSE-rep-git/not\ MT/November")
+setwd(here::here("not\ MT/November"))
 
 files = list.files(pattern="38sw")
 Nov = do.call(rbind, lapply(files, function(x) read.csv(x, stringsAsFactors = FALSE)))
 Nov$lang<-"bilingual"
+Nov$pilot <- 0
 colnames(Nov)[1] <- "Event.Index" # rename first column to "Event.Index"
 
 # combine and clean data
-setwd("~/CSE-rep-git")
-
-
+setwd(here::here())
 
 # analyse data
 
 setwd("new_analysis")
 
+write.csv(demo,"demographics.csv")
+write.csv(pilot,"pilot_flanker_data.csv")
+write.csv(mono,"monolingual_flanker_data.csv")
+write.csv(Nov,"bilingual_flanker_data.csv")
+write.csv(study,"study_data.csv")
+write.csv(Language1,"L1.csv")
+write.csv(Language2,"L2.csv")
 
+Flanker_data <- rbind(pilot, Nov, mono)
 
-#bilingual data CSE in flanker task:
+write.csv(Flanker_data,"combined_flanker_data.csv")
 
-rt_density_plot <- ggplot(data = alldata) +
-  geom_density(mapping = aes(mapping = aes(x=RT, group=interaction))
+# repeat above with Simon task data
+
+setwd(here::here())
+
+# load simon pilot data (don't run if you don't want pilot data)
+setwd(here::here("pilot"))
+files = list.files(pattern="95tf")
+pilot= do.call(rbind, lapply(files, function(x) read.csv(x, stringsAsFactors = FALSE)))
+pilot$lang<-"bilingual"
+pilot$pilot <- 1
+colnames(pilot)[1] <- "Event.Index" # rename first column to "Event.Index"
+
+# load simon monolingual data
+setwd(here::here("not\ MT/monolingual"))
+files = list.files(pattern="95tf")
+mono= do.call(rbind, lapply(files, function(x) read.csv(x, stringsAsFactors = FALSE)))
+mono$lang<-"monolingual"
+mono$pilot <- 0
+colnames(mono)[1] <- "Event.Index" # rename first column to "Event.Index"
+
+# load simon bilingual data
+setwd(here::here("not\ MT/November"))
+
+files = list.files(pattern="95tf")
+Nov = do.call(rbind, lapply(files, function(x) read.csv(x, stringsAsFactors = FALSE)))
+Nov$lang<-"bilingual"
+Nov$pilot <- 1
+colnames(Nov)[1] <- "Event.Index" # rename first column to "Event.Index"
+
+Simon <- rbind(pilot,Nov,mono)
+
+setwd(here::here("new_analysis"))
+
+write.csv(pilot,"pilot_simon_data.csv")
+write.csv(mono,"monolingual_simon_data.csv")
+write.csv(Nov,"bilingual_simon_data.csv")
+
+write.csv(Simon,"combined_simon_data.csv")
+
+setwd(here::here())
+
+rm(list=ls())
