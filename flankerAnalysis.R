@@ -1,7 +1,7 @@
 # Flanker
 # analysis of CSE in a the flanker task replication.
 
-setwd(here::here("new_analysis"))
+setwd("~/CSE-rep-git/new_analysis")
 
 # load in flanker data
 
@@ -39,17 +39,14 @@ dataDF <- dataDFfull %>%
   filter(Attempt==1) %>% # use just screen which actually records experiment
   filter(display!="PracticeTrial") %>%  # remove practice trials
   filter(Type!="Neutral") #%>% # remove neutral trials
-  #select(Participant.Private.ID, Incorrect, Type, 
-  #       Reaction.Time, Image, Trial.Number, Answer, lang)
 
 # add previous trial congruency, and previous trial answer (left or right)
-
 dataDF <- dataDF %>% 
-  mutate(Nminus1 = lag(Type),
+  mutate(CongNminus1 = lag(Type),
          posterror = lag(Incorrect),
          respminus1 = lag(Answer),
          respshift = ifelse(Answer!=respminus1, yes = "different", no = "same")) %>% 
-  mutate(across(c(Type, Nminus1, posterror, respshift),as_factor))
+  mutate(across(c(Type, CongNminus1, posterror, respshift),as_factor))
 
 # coerce RT, Incorrect flag and Trial number to numeric data
 
@@ -75,7 +72,7 @@ dataDF <- dataDF %>%
   mutate(accuracy = mean(Incorrect)) %>%  # add error rate, add to each row
   filter(accuracy <= processing_options$performance_cut)
 
-#length(unique(dataDF$Participant.Private.ID))
+length(unique(dataDF$Participant.Private.ID))
 
 # 4 removed for poor performance (fewer than polly, as 0.25 acc cutoff exact for one participant.) - changed to a value from processing_options
 
@@ -85,15 +82,15 @@ dataDF <- dataDF %>%
            Reaction.Time <= processing_options$highRTcut)
 
 dataDF <- dataDF %>% ungroup() %>% 
-  rename(CurrentTrial = Type,
+  rename(Congruency = Type,
          RT = Reaction.Time,
          Error = Incorrect,
          ParticipantID = Participant.Private.ID,
          Stimulus = Image,
          LanguageGroup = lang) %>% 
   mutate(ParticipantID = as_factor(ParticipantID),
-         CurrentTrial = as_factor(CurrentTrial),
-         Nminus1 = as_factor(Nminus1))
+         Congruency = as_factor(Congruency),
+         CongNminus1 = as_factor(CongNminus1))
 
 # crosstabs to check values
 # xtabs(~dataDF$Answer)
@@ -104,19 +101,22 @@ dataDF <- dataDF %>% ungroup() %>%
 # final data wrangling to select only relevant variables
 
 dataDF <- dataDF %>%
-  select(ParticipantID, CurrentTrial, Stimulus, Answer, 
-         Response, RT, Error, LanguageGroup, Nminus1, 
-         posterror, respshift)
+  select(ParticipantID, Congruency, Stimulus, Answer, 
+         Response, RT, Error, LanguageGroup, CongNminus1, 
+         posterror, respshift) %>% 
+  mutate(Congruency = fct_relevel(Congruency, "Congruent", "Incongruent"),
+         CongNminus1 = fct_relevel(CongNminus1, "Congruent", "Incongruent"))
+  
 
 # exploratory plots of RT distributions
 flankcurve <- ggplot(data=dataDF) 
 flankcurve + 
-  geom_density(aes(RT, colour = interaction(CurrentTrial, Nminus1)))+
+  geom_density(aes(RT, colour = interaction(Congruency, CongNminus1)))+
   facet_wrap(~LanguageGroup)
 
-flankboxplot <- ggplot(data=dataDF, mapping = aes(y=RT, colour = Nminus1))
+flankboxplot <- ggplot(data=dataDF, mapping = aes(y=RT, colour = CongNminus1))
 flankboxplot+
-  geom_boxplot(mapping = aes(x=Nminus1, colour = CurrentTrial))+
+  geom_boxplot(mapping = aes(x=CongNminus1, colour = Congruency))+
   facet_wrap(~LanguageGroup)
 
 # conventional analysis, split by language group
@@ -124,11 +124,11 @@ flankboxplot+
 monodata <- dataDF %>% filter(LanguageGroup=="monolingual")
 bilidata <- dataDF %>% filter(LanguageGroup=="bilingual")
 
-data_agg <- aggregate(RT ~ CurrentTrial*Nminus1*respshift*ParticipantID, 
-                      mean, na.rm=T, data=bilidata)
+data_agg <- aggregate(RT ~ Congruency*CongNminus1*respshift*ParticipantID*LanguageGroup, 
+                      mean, na.rm=T, data=dataDF)
 
-aov_RT <- aov_car(RT ~ CurrentTrial*Nminus1*respshift +
-                    Error(ParticipantID/CurrentTrial*Nminus1*respshift),
+aov_RT <- aov_car(RT ~ Congruency*CongNminus1*respshift*LanguageGroup +
+                    Error(ParticipantID/Congruency*CongNminus1*respshift),
                   data=data_agg)
 knitr::kable(nice(aov_RT))
 
