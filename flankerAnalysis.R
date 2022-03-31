@@ -125,12 +125,17 @@ monodata <- dataDF %>% filter(LanguageGroup=="monolingual")
 bilidata <- dataDF %>% filter(LanguageGroup=="bilingual")
 
 data_agg <- aggregate(RT ~ CurrentTrial*Nminus1*respshift*ParticipantID, 
-                      mean, na.rm=T, data=monodata)
+                      mean, na.rm=T, data=bilidata)
 
 aov_RT <- aov_car(RT ~ CurrentTrial*Nminus1*respshift +
                     Error(ParticipantID/CurrentTrial*Nminus1*respshift),
                   data=data_agg)
 knitr::kable(nice(aov_RT))
 
+#plot the pattern
+
 afex_plot(aov_RT, panel="respshift", x="Nminus1", trace="CurrentTrial", 
           error="within", data_plot=F)
+
+data_agg %>% filter(respshift=="same") %>% 
+  aov_car(data=., formula = RT ~ CurrentTrial * Nminus1 + Error(ParticipantID/CurrentTrial * Nminus1))
