@@ -125,7 +125,7 @@ monodata <- dataDF %>% filter(LanguageGroup=="monolingual")
 bilidata <- dataDF %>% filter(LanguageGroup=="bilingual")
 
 data_agg <- aggregate(RT ~ CurrentTrial*Nminus1*respshift*ParticipantID, 
-                      mean, na.rm=T, data=monodata)
+                      mean, na.rm=T, data=bilidata)
 
 aov_RT <- aov_car(RT ~ CurrentTrial*Nminus1*respshift +
                     Error(ParticipantID/CurrentTrial*Nminus1*respshift),
