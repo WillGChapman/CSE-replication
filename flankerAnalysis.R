@@ -1,7 +1,7 @@
 # Flanker
 # analysis of CSE in a the flanker task replication.
 
-setwd(here::here("new_analysis"))
+setwd("~/CSE-rep-git/new_analysis")
 
 # load in flanker data
 
