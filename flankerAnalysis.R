@@ -48,7 +48,8 @@ dataDF <- dataDF %>%
   mutate(Nminus1 = lag(Type),
          posterror = lag(Incorrect),
          respminus1 = lag(Answer),
-         respshift = Answer==respminus1)
+         respshift = ifelse(Answer!=respminus1, yes = "different", no = "same")) %>% 
+  mutate(across(c(Type, Nminus1, posterror, respshift),as_factor))
 
 # coerce RT, Incorrect flag and Trial number to numeric data
 
@@ -113,15 +114,23 @@ flankcurve +
   geom_density(aes(RT, colour = interaction(CurrentTrial, Nminus1)))+
   facet_wrap(~LanguageGroup)
 
-flankplot <- ggplot(data=Flanker_KP2, mapping = aes(y=Reaction.Time, colour = Nminus1))
-
-flankplot+
+flankboxplot <- ggplot(data=dataDF, mapping = aes(y=RT, colour = Nminus1))
+flankboxplot+
   geom_boxplot(mapping = aes(x=Nminus1, colour = CurrentTrial))+
   facet_wrap(~LanguageGroup)
 
-# conventional analysis
+# conventional analysis, split by language group
 
+monodata <- dataDF %>% filter(LanguageGroup=="monolingual")
+bilidata <- dataDF %>% filter(LanguageGroup=="bilingual")
 
+data_agg <- aggregate(RT ~ CurrentTrial*Nminus1*respshift*ParticipantID, 
+                      mean, na.rm=T, data=monodata)
 
+aov_RT <- aov_car(RT ~ CurrentTrial*Nminus1*respshift +
+                    Error(ParticipantID/CurrentTrial*Nminus1*respshift),
+                  data=data_agg)
+knitr::kable(nice(aov_RT))
 
-
+afex_plot(aov_RT, panel="respshift", x="Nminus1", trace="CurrentTrial", 
+          error="within", data_plot=F)

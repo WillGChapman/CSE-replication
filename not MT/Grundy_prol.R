@@ -1,19 +1,21 @@
-requires = c("readxl", "data.table","dplyr","ggplot2","afex", "emmeans","stringi", "tidyr","plyr","cowplot","tidyverse","bayestestR","BayesFactor","janitor")
-installs = requires[!requires %in% installed.packages()[,"Package"]]
+requires  <-  c("readxl", "data.table","dplyr","ggplot2","afex", "emmeans","stringi", "tidyr","plyr","cowplot","tidyverse","bayestestR","BayesFactor","janitor")
+installs  <-  requires[!requires %in% installed.packages()[,"Package"]]
 # If any are not yet installed, install them.
 if(length(installs)) install.packages(installs)
 # Load the packages
 for (l in requires) require(l, character.only=TRUE)
 
-
+setwd("..")
 #participant demographics
-setwd("~/OneDrive - University of Bristol/replication of Grundy/data/demographics/ppt")
-files = list.files(pattern="*.csv")
+setwd("~/CSE-rep-git/demographics/ppt")
+files <-  list.files(pattern="*a.csv")
 # First apply read.csv, then rbind
-demo = do.call(rbind, lapply(files, function(x) read.csv(x, stringsAsFactors = FALSE)))
+demo <-  do.call(rbind, lapply(files, function(x) read.csv(x, stringsAsFactors = FALSE)))
 head(demo,n=1)
-demo<-demo[demo$Event.Index!="END OF FILE",]
-demo<-demo[demo$Question.Key!="BEGIN QUESTIONNAIRE",]
+colnames(demo)[1] <- "Event.Index" # rename first column to "Event.Index"
+demo <- demo[demo$Event.Index != "END OF FILE",]
+# remove "begin q" rows
+demo <- demo[demo$Question.Key != "BEGIN QUESTIONNAIRE",]
 ### keep just the relevant columns
 demo <- demo[,c("Participant.Private.ID","Question.Key", "Response",'Experiment.Version')]
 #long to wide
@@ -27,11 +29,13 @@ demo <- demo %>%
 write.csv(demo,"demo.csv")
 demo<-read.csv(file="demo.csv")
 #Study information (i.e. mouse)
-setwd("~/OneDrive - University of Bristol/replication of Grundy/data/demographics/study")
+setwd("../study")
 files = list.files(pattern="*.csv")
 # First apply read.csv, then rbind
 study = do.call(rbind, lapply(files, function(x) read.csv(x, stringsAsFactors = FALSE)))
 ### keep just the relevant columns
+head(study)
+colnames(study)[1] <- "Event.Index" # rename first column to "Event.Index"
 study<-study[study$Event.Index!="END OF FILE",]
 study<-study[study$Question.Key!="BEGIN QUESTIONNAIRE",]
 study <- study[,c("Participant.Private.ID","Question.Key", "Response",'Experiment.Version')]
@@ -41,10 +45,12 @@ study <- study %>%
 table(study$mouse) #30 used mouse
 
 #Language information
-setwd("~/OneDrive - University of Bristol/replication of Grundy/data/demographics/Language1")
+setwd("../Language1")
 files = list.files(pattern="*.csv")
 # First apply read.csv, then rbind
 Language1 = do.call(rbind, lapply(files, function(x) read.csv(x, stringsAsFactors = FALSE)))
+head(Language1, n=1)
+colnames(Language1)[1] <- "Event.Index" # rename first column to "Event.Index"
 ### keep just the relevant columns
 Language1<-Language1[Language1$Question.Key!="BEGIN QUESTIONNAIRE",]
 Language1<-Language1[Language1$Event.Index!="END OF FILE",]
@@ -52,14 +58,15 @@ Language1 <- Language1[,c("Participant.Private.ID","Question.Key", "Response",'E
 #long to wide
 Language1 <- Language1 %>%
   spread(Question.Key, Response)
-setwd("C:/Users/cn19915/OneDrive - University of Bristol/replication of Grundy/data/demographics/Language2")
-setwd("~/OneDrive - University of Bristol/replication of Grundy/data/demographics/Language2")
+setwd("../Language2")
+
 files = list.files(pattern="*.csv")
 # First apply read.csv, then rbind
 Language2 = do.call(rbind, lapply(files, function(x) read.csv(x, stringsAsFactors = FALSE)))
 ### keep just the relevant columns
-Language2<-Language2[Language2$Question.Key!="BEGIN QUESTIONNAIRE",]
 head(Language2)
+colnames(Language2)[1] <- "Event.Index" # rename first column to "Event.Index"
+Language2<-Language2[Language2$Question.Key!="BEGIN QUESTIONNAIRE",]
 Language2<-Language2[Language2$Event.Index!="END OF FILE",]
 Language2 <- Language2[,c("Participant.Private.ID","Question.Key", "Response",'Experiment.Version')]
 #long to wide
@@ -75,24 +82,33 @@ table(bilingual$bilingual) #27mono 18 bi
 
 #####################
 #Normal flanker
-setwd("~/OneDrive - University of Bristol/replication of Grundy/data/prolific data/pilot")
-setwd("C:/Users/cn19915/OneDrive - University of Bristol/replication of Grundy/data/prolific data/pilot")
+setwd("..")
+setwd("..")
+setwd("pilot")
 files = list.files(pattern="38sw")
 pilot= do.call(rbind, lapply(files, function(x) read.csv(x, stringsAsFactors = FALSE)))
 pilot$lang<-"bilingual"
-setwd("~/OneDrive - University of Bristol/replication of Grundy/data/prolific data/November")
-setwd("C:/Users/cn19915/OneDrive - University of Bristol/replication of Grundy/data/prolific data/November")
+colnames(pilot)[1] <- "Event.Index" # rename first column to "Event.Index"
+setwd("..")
+setwd("not\ MT/November")
+
 files = list.files(pattern="38sw")
 Nov = do.call(rbind, lapply(files, function(x) read.csv(x, stringsAsFactors = FALSE)))
 Nov$lang<-"bilingual"
-setwd("~/OneDrive - University of Bristol/replication of Grundy/data/prolific data/monolingual")
-setwd("C:/Users/cn19915/OneDrive - University of Bristol/replication of Grundy/data/prolific data/monolingual")
+colnames(Nov)[1] <- "Event.Index" # rename first column to "Event.Index"
+setwd("..")
+setwd("..")
+setwd("not\ MT/monolingual")
 files = list.files(pattern="38sw")
 mono= do.call(rbind, lapply(files, function(x) read.csv(x, stringsAsFactors = FALSE)))
 mono$lang<-"monolingual"
+colnames(mono)[1] <- "Event.Index" # rename first column to "Event.Index"
 
 Flanker_KP<-rbind(pilot,Nov,mono)
 table(unique(Flanker_KP$lang))
+
+head(Flanker_KP)
+
 #Makes names more managable for graphs
 Flanker_KP<-Flanker_KP %>% 
   mutate(Type = str_replace(Type, "Incongruent", "Incong"))
@@ -112,7 +128,7 @@ time$taken<-time$endTS-time$beginTS
 time$taken2<-format( as.POSIXct(Sys.Date())+time$taken/1000, "%M:%S") #longest time is 7 mins- so all good!
 
 taken<-time[,c("Participant.Private.ID","taken2")]
-#add time taken to falnker
+#add time taken to flanker data
 Flanker_KP<-merge(Flanker_KP, taken, by="Participant.Private.ID")
 
 ### keep just the relevant rows
@@ -121,6 +137,7 @@ Flanker_KP<-Flanker_KP[Flanker_KP$display!="PracticeTrial",]
 Flanker_KP<-Flanker_KP[Flanker_KP$Type!="Neutral",]
 head(Flanker_KP)
 Flanker_KP <- Flanker_KP[,c("Participant.Private.ID","Incorrect", "Type","Reaction.Time", "Image","Trial.Number", "Answer","lang")]
+
 ### CODE VARIABLE "CONGRUENCY ON TRIAL N-1"
 Nminus1 <- data.table::shift(Flanker_KP$Type, fill=NA)
 tabyl(Nminus1) %>% adorn_pct_formatting() %>% knitr::kable()
@@ -137,7 +154,7 @@ Flanker_KP <- cbind(Flanker_KP, responserepeat)
 str(Flanker_KP)
 Flanker_KP$Reaction.Time<-as.numeric(Flanker_KP$Reaction.Time)
 Flanker_KP$Trial.Number<-as.integer(Flanker_KP$Trial.Number)
-Flanker_KP<-Flanker_KP[Flanker_KP$Trial.Number!=c(41,81,121,161,201),]
+Flanker_KPx<-Flanker_KP[Flanker_KP$Trial.Number!=c(41,81,121,161,201),] #why these?
 
 #average accuracy by ppt
 Flanker_KP$Incorrect <- as.numeric(Flanker_KP$Incorrect)
@@ -149,7 +166,7 @@ Flanker_KP<-merge(Flanker_KP,av_data_ppt,by="Participant.Private.ID")
 length(unique(Flanker_KP$Participant.Private.ID))
 Flanker_KP<-Flanker_KP[Flanker_KP$Accuracy<=0.25,] #(removal of 2 ppts)
 
-#create efficiy
+#create efficiency scores
 Flanker_KP$Accuracy2<-100-Flanker_KP$Accuracy
 Flanker_KP$efficiency<-Flanker_KP$Reaction.Time/Flanker_KP$Accuracy2
 #Data cleaing Cho and Kim <150 >1250 removed (18% in their data)
