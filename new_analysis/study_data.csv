@@ -1,45 +1,45 @@
-"","Participant.Private.ID","Experiment.Version","drugs/alcohol-1","drugs/alcohol-2","drugs/alcohol-3","drugs/alcohol-4","drugs/alcohol-5","END QUESTIONNAIRE","mouse","mouse-quantised","problems","problems-quantised","problems-text","tired","tired-quantised"
-"1",3570726,1,"No",NA,NA,NA,NA,"19494","mouse","1","no","1","","Tired","2"
-"2",3575028,1,"No",NA,NA,NA,NA,"32813","mouse","1","no","1","","Fine","3"
-"3",3576729,1,"No",NA,NA,NA,NA,"34381","mouse","1","no","1","","Fine","3"
-"4",3578737,1,"No",NA,NA,NA,NA,"19929","mouse","1","no","1","","Alert","4"
-"5",3579182,1,"No",NA,NA,NA,NA,"13107","trackpad","2","no","1","","Fine","3"
-"6",3580184,1,NA,"Alcohol in the last 48 hours",NA,NA,NA,"71411","mouse","1","Other (please specify)",NA,"first mouse click wouldn't register very rarely","Alert","4"
-"7",3581730,1,"No",NA,NA,NA,NA,"9646","mouse","1","no","1","","Fine","3"
-"8",3584328,2,NA,"Alcohol in the last 48 hours",NA,NA,NA,"26392","trackpad","2","no","1","","Fine","3"
-"9",3585768,2,"No",NA,NA,NA,NA,"29292","mouse","1","no","1","","Alert","4"
-"10",3594093,2,NA,"Alcohol in the last 48 hours",NA,NA,NA,"33074","trackpad","2","no","1","","Fine","3"
-"11",3596646,2,"No",NA,NA,NA,NA,"27541","mouse","1","no","1","","Fine","3"
-"12",3605512,2,"No",NA,NA,NA,NA,"20032","mouse","1","no","1","","Tired","2"
-"13",3608641,2,"No",NA,NA,NA,NA,"21852","trackpad","2","no","1","","Tired","2"
-"14",3615099,2,NA,"Alcohol in the last 48 hours",NA,"Recreational drugs",NA,"28883","mouse","1","no","1","","Alert","4"
-"15",3620429,2,NA,"Alcohol in the last 48 hours",NA,NA,NA,"23557","mouse","1","no","1","","Fine","3"
-"16",3623232,2,NA,"Alcohol in the last 48 hours",NA,NA,"Prescription drugs","30034","mouse","1","no","1","","Tired","2"
-"17",3628679,2,NA,NA,"Alcohol in the last 12 hours",NA,NA,"27540","mouse","1","no","1","","Tired","2"
-"18",3629116,2,NA,NA,"Alcohol in the last 12 hours","Recreational drugs",NA,"22499","mouse","1","no","1","","Tired","2"
-"19",3630230,2,"No",NA,NA,NA,NA,"11742","mouse","1","no","1","","Fine","3"
-"20",3648116,2,"No",NA,NA,NA,NA,"14642","mouse","1","no","1","","Tired","2"
-"21",3655467,2,NA,"Alcohol in the last 48 hours",NA,NA,NA,"34678","trackpad","2","no","1","","Fine","3"
-"22",3660280,2,NA,"Alcohol in the last 48 hours",NA,NA,NA,"66128","trackpad","2","no","1","","Very Tired","1"
-"23",3666672,2,"No",NA,NA,NA,NA,"16397","trackpad","2","no","1","","Fine","3"
-"24",3667076,2,"No",NA,NA,NA,NA,"106805","mouse","1","Other (please specify)",NA,"On one of the second trial I though I had to not make it fullscreen and then accidentally clicked on my bookmarks. I clicked the back button quickly and it took me back to the experiment. ","Alert","4"
-"25",3683167,2,NA,"Alcohol in the last 48 hours",NA,NA,NA,"48427","mouse","1","no","1","","Tired","2"
-"26",3684157,2,"No",NA,NA,NA,NA,"43448","trackpad","2","no","1","","Tired","2"
-"27",3689958,2,"No",NA,NA,NA,NA,"19445","mouse","1","no","1","","Fine","3"
-"28",3691796,2,NA,NA,"Alcohol in the last 12 hours",NA,NA,"25958","mouse","1","no","1","","Fine","3"
-"29",3692929,2,"No",NA,NA,NA,NA,"17727","mouse","1","no","1","","Fine","3"
-"30",3702337,2,"No",NA,NA,NA,NA,"14357","mouse","1","no","1","","Very Tired","1"
-"31",3709317,2,"No",NA,NA,NA,NA,"18481","trackpad","2","yes","2","","Tired","2"
-"32",3718592,3,"No",NA,NA,NA,NA,"23074","mouse","1","no","1","","Tired","2"
-"33",3721005,3,"No",NA,NA,NA,NA,"21038","mouse","1","no","1","","Tired","2"
-"34",3728226,3,"No",NA,NA,NA,NA,"27746","trackpad","2","no","1","","Tired","2"
-"35",3733088,3,NA,"Alcohol in the last 48 hours",NA,NA,NA,"19683","trackpad","2","no","1","","Fine","3"
-"36",3733380,3,NA,NA,NA,NA,"Prescription drugs","41631","trackpad","2","no","1","","Tired","2"
-"37",3739916,3,NA,"Alcohol in the last 48 hours",NA,NA,NA,"37624","mouse","1","no","1","","Fine","3"
-"38",3745726,3,"No",NA,NA,NA,NA,"17210","mouse","1","no","1","","Fine","3"
-"39",3756128,4,NA,"Alcohol in the last 48 hours",NA,NA,NA,"72462","mouse","1","no","1","","Very Tired","1"
-"40",3756966,4,"No",NA,NA,NA,NA,"20152","mouse","1","no","1","","Tired","2"
-"41",3771713,4,NA,"Alcohol in the last 48 hours",NA,NA,NA,"23299","trackpad","2","no","1","","Fine","3"
-"42",3780178,4,"No",NA,NA,NA,NA,"13010","trackpad","2","no","1","","Tired","2"
-"43",3782232,4,"No",NA,NA,NA,NA,"15756","mouse","1","no","1","","Tired","2"
-"44",3786770,4,NA,NA,NA,NA,"Prescription drugs","19957","mouse","1","no","1","","Fine","3"
+"","Participant.Private.ID","Experiment.Version","mouse","mouse-quantised","problems","problems-quantised","problems-text","drugs/alcohol-1","tired","tired-quantised","END QUESTIONNAIRE","drugs/alcohol-2","drugs/alcohol-4","drugs/alcohol-5","drugs/alcohol-3"
+"1",3570726,1,"mouse","1","no","1","","No","Tired","2","19494",NA,NA,NA,NA
+"2",3575028,1,"mouse","1","no","1","","No","Fine","3","32813",NA,NA,NA,NA
+"3",3576729,1,"mouse","1","no","1","","No","Fine","3","34381",NA,NA,NA,NA
+"4",3578737,1,"mouse","1","no","1","","No","Alert","4","19929",NA,NA,NA,NA
+"5",3579182,1,"trackpad","2","no","1","","No","Fine","3","13107",NA,NA,NA,NA
+"6",3580184,1,"mouse","1","Other (please specify)",NA,"first mouse click wouldn't register very rarely",NA,"Alert","4","71411","Alcohol in the last 48 hours",NA,NA,NA
+"7",3581730,1,"mouse","1","no","1","","No","Fine","3","9646",NA,NA,NA,NA
+"8",3584328,2,"trackpad","2","no","1","",NA,"Fine","3","26392","Alcohol in the last 48 hours",NA,NA,NA
+"9",3585768,2,"mouse","1","no","1","","No","Alert","4","29292",NA,NA,NA,NA
+"10",3594093,2,"trackpad","2","no","1","",NA,"Fine","3","33074","Alcohol in the last 48 hours",NA,NA,NA
+"11",3596646,2,"mouse","1","no","1","","No","Fine","3","27541",NA,NA,NA,NA
+"12",3608641,2,"trackpad","2","no","1","","No","Tired","2","21852",NA,NA,NA,NA
+"13",3605512,2,"mouse","1","no","1","","No","Tired","2","20032",NA,NA,NA,NA
+"14",3615099,2,"mouse","1","no","1","",NA,"Alert","4","28883","Alcohol in the last 48 hours","Recreational drugs",NA,NA
+"15",3620429,2,"mouse","1","no","1","",NA,"Fine","3","23557","Alcohol in the last 48 hours",NA,NA,NA
+"16",3623232,2,"mouse","1","no","1","",NA,"Tired","2","30034","Alcohol in the last 48 hours",NA,"Prescription drugs",NA
+"17",3628679,2,"mouse","1","no","1","",NA,"Tired","2","27540",NA,NA,NA,"Alcohol in the last 12 hours"
+"18",3629116,2,"mouse","1","no","1","",NA,"Tired","2","22499",NA,"Recreational drugs",NA,"Alcohol in the last 12 hours"
+"19",3630230,2,"mouse","1","no","1","","No","Fine","3","11742",NA,NA,NA,NA
+"20",3648116,2,"mouse","1","no","1","","No","Tired","2","14642",NA,NA,NA,NA
+"21",3655467,2,"trackpad","2","no","1","",NA,"Fine","3","34678","Alcohol in the last 48 hours",NA,NA,NA
+"22",3660280,2,"trackpad","2","no","1","",NA,"Very Tired","1","66128","Alcohol in the last 48 hours",NA,NA,NA
+"23",3666672,2,"trackpad","2","no","1","","No","Fine","3","16397",NA,NA,NA,NA
+"24",3667076,2,"mouse","1","Other (please specify)",NA,"On one of the second trial I though I had to not make it fullscreen and then accidentally clicked on my bookmarks. I clicked the back button quickly and it took me back to the experiment. ","No","Alert","4","106805",NA,NA,NA,NA
+"25",3689958,2,"mouse","1","no","1","","No","Fine","3","19445",NA,NA,NA,NA
+"26",3684157,2,"trackpad","2","no","1","","No","Tired","2","43448",NA,NA,NA,NA
+"27",3683167,2,"mouse","1","no","1","",NA,"Tired","2","48427","Alcohol in the last 48 hours",NA,NA,NA
+"28",3691796,2,"mouse","1","no","1","",NA,"Fine","3","25958",NA,NA,NA,"Alcohol in the last 12 hours"
+"29",3692929,2,"mouse","1","no","1","","No","Fine","3","17727",NA,NA,NA,NA
+"30",3702337,2,"mouse","1","no","1","","No","Very Tired","1","14357",NA,NA,NA,NA
+"31",3709317,2,"trackpad","2","yes","2","","No","Tired","2","18481",NA,NA,NA,NA
+"32",3718592,3,"mouse","1","no","1","","No","Tired","2","23074",NA,NA,NA,NA
+"33",3721005,3,"mouse","1","no","1","","No","Tired","2","21038",NA,NA,NA,NA
+"34",3728226,3,"trackpad","2","no","1","","No","Tired","2","27746",NA,NA,NA,NA
+"35",3733088,3,"trackpad","2","no","1","",NA,"Fine","3","19683","Alcohol in the last 48 hours",NA,NA,NA
+"36",3733380,3,"trackpad","2","no","1","",NA,"Tired","2","41631",NA,NA,"Prescription drugs",NA
+"37",3739916,3,"mouse","1","no","1","",NA,"Fine","3","37624","Alcohol in the last 48 hours",NA,NA,NA
+"38",3745726,3,"mouse","1","no","1","","No","Fine","3","17210",NA,NA,NA,NA
+"39",3786770,4,"mouse","1","no","1","",NA,"Fine","3","19957",NA,NA,"Prescription drugs",NA
+"40",3782232,4,"mouse","1","no","1","","No","Tired","2","15756",NA,NA,NA,NA
+"41",3771713,4,"trackpad","2","no","1","",NA,"Fine","3","23299","Alcohol in the last 48 hours",NA,NA,NA
+"42",3756966,4,"mouse","1","no","1","","No","Tired","2","20152",NA,NA,NA,NA
+"43",3756128,4,"mouse","1","no","1","",NA,"Very Tired","1","72462","Alcohol in the last 48 hours",NA,NA,NA
+"44",3780178,4,"trackpad","2","no","1","","No","Tired","2","13010",NA,NA,NA,NA

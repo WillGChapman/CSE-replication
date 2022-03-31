@@ -13,7 +13,8 @@ requires  <-  c("readxl",
                 "tidyverse",
                 "bayestestR",
                 "BayesFactor",
-                "janitor")
+                "janitor",
+                "here")
 
 # installs required libraries (which aren't already installed)
 installs  <-  requires[!requires %in% installed.packages()[,"Package"]]
@@ -125,17 +126,17 @@ setwd(here::here())
 
 setwd("new_analysis")
 
-write.csv(demo,"demographics.csv")
-write.csv(pilot,"pilot_flanker_data.csv")
-write.csv(mono,"monolingual_flanker_data.csv")
-write.csv(Nov,"bilingual_flanker_data.csv")
-write.csv(study,"study_data.csv")
-write.csv(Language1,"L1.csv")
-write.csv(Language2,"L2.csv")
+# write.csv(demo,"demographics.csv")
+# write.csv(pilot,"pilot_flanker_data.csv")
+# write.csv(mono,"monolingual_flanker_data.csv")
+# write.csv(Nov,"bilingual_flanker_data.csv")
+# write.csv(study,"study_data.csv")
+# write.csv(Language1,"L1.csv")
+# write.csv(Language2,"L2.csv")
 
 Flanker_data <- rbind(pilot, Nov, mono)
 
-write.csv(Flanker_data,"combined_flanker_data.csv")
+# write.csv(Flanker_data,"combined_flanker_data.csv")
 
 # repeat above with Simon task data
 
@@ -163,18 +164,18 @@ setwd(here::here("not\ MT/November"))
 files = list.files(pattern="95tf")
 Nov = do.call(rbind, lapply(files, function(x) read.csv(x, stringsAsFactors = FALSE)))
 Nov$lang<-"bilingual"
-Nov$pilot <- 1
+Nov$pilot <- 0
 colnames(Nov)[1] <- "Event.Index" # rename first column to "Event.Index"
 
 Simon <- rbind(pilot,Nov,mono)
 
 setwd(here::here("new_analysis"))
 
-write.csv(pilot,"pilot_simon_data.csv")
-write.csv(mono,"monolingual_simon_data.csv")
-write.csv(Nov,"bilingual_simon_data.csv")
-
-write.csv(Simon,"combined_simon_data.csv")
+# write.csv(pilot,"pilot_simon_data.csv")
+# write.csv(mono,"monolingual_simon_data.csv")
+# write.csv(Nov,"bilingual_simon_data.csv")
+# 
+# write.csv(Simon,"combined_simon_data.csv")
 
 setwd(here::here())
 
